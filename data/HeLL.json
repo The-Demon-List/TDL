@@ -1,0 +1,18 @@
+{
+    "id": 25706351,
+    "name": "HeLL",
+    "author": "Serponge",
+    "creators": ["Serponge"],
+    "verifier": "Stubbie",
+    "verification": "https://youtu.be/gTtsrzNUJM8?si=KsdTWgwqq_X8J47B",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Toph",
+            "link": "https://youtu.be/gTtsrzNUJM8?si=KsdTWgwqq_X8J47B",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
