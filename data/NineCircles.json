@@ -1,0 +1,24 @@
+{
+    "id": 7054561,
+    "name": "Nine Circles",
+    "author": "Zobros",
+    "creators": ["Zobros"],
+    "verifier": "Stubbie",
+    "verification": "https://youtu.be/dOdPoU1ncOc?si=KEJuHEXHvT8ojSUw",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/dOdPoU1ncOc?si=KEJuHEXHvT8ojSUw",
+            "percent": 100,
+            "hz": 60
+        },
+        {
+            "user": "Toph",
+            "link": "https://youtu.be/hjt5tFoypuU?si=Pfq2x88GJI2x8oz3",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
