@@ -1,0 +1,18 @@
+{
+    "id": 34085027,
+    "name": "B",
+    "author": "Motleyorc",
+    "creators": ["Motleyorc"],
+    "verifier": "Stubbie",
+    "verification": "https://youtu.be/F2Y05OVWOc4?si=xt7Y77VvjVCLMQoF",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/F2Y05OVWOc4?si=xt7Y77VvjVCLMQoF",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
