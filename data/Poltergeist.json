@@ -1,0 +1,24 @@
+{
+    "id": 3979721,
+    "name": "Poltergeist",
+    "author": "Andromeda GMD",
+    "creators": ["Andromeda GMD"],
+    "verifier": "Toph",
+    "verification": "https://youtu.be/hhPt11zzVl4?si=aqAsV-DvbkNjIn5s",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Stubbie",
+            "link": "https://youtu.be/hhPt11zzVl4?si=aqAsV-DvbkNjIn5s",
+            "percent": 100,
+            "hz": 240
+        },
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/hhPt11zzVl4?si=aqAsV-DvbkNjIn5s"
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
