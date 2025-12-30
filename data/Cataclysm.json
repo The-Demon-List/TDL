@@ -3,13 +3,13 @@
     "name": "Cataclysm",
     "author": "GGBoy",
     "creators": ["GGBoy"],
-    "verifier": "Loki",
+    "verifier": "Stubbie",
     "verification": "https://youtu.be/2Q0CYSDFpKk?si=pq481whsYXI3Ya4v",
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
         {
-            "user": "Stubbie",
+            "user": "Loki",
             "link": "https://youtu.be/2Q0CYSDFpKk?si=pq481whsYXI3Ya4v",
             "percent": 100,
             "hz": 240
