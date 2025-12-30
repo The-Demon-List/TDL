@@ -1,27 +1,22 @@
 [
     {
         "role": "owner",
-        "name": "List Owner",
+        "name": "Loki",
         "link": "www.youtube.com/@LokiSGYT"
     },
     {
         "role": "admin",
-        "name": "List Admin",
+        "name": "Stubbie",
         "link": "https://www.youtube.com/@Prometheus_Alt"
     },
     {
         "role": "helper",
-        "name": "List Helper",
-        "link": "https://www.youtube.com/@Prometheus_Alt"
-    },
-    {
-        "role": "trial",
-        "name": "Trial List Helper",
+        "name": "Stubbie",
         "link": "https://www.youtube.com/@Prometheus_Alt"
     },
     {
         "role": "dev",
-        "name": "List Coder",
+        "name": "Loki",
         "link": "https://www.youtube.com/@Prometheus_Alt"
     }
 ]
