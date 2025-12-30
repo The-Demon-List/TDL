@@ -1,0 +1,24 @@
+{
+    "id": 58002670,
+    "name": "Sakupen Egg",
+    "author": "Sivlol",
+    "creators": ["Sivlol"],
+    "verifier": "Toph",
+    "verification": "https://youtu.be/yLmlJdUxKGY?si=s2Tyxx2n4TPiqXLQ",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/M61Vqi6ryj8?si=VxkuRsAtbhqyAbu_",
+            "percent": 100,
+            "hz": 240
+        },
+        {
+            "user": "Stubbie",
+            "link": "https://youtu.be/M61Vqi6ryj8?si=VxkuRsAtbhqyAbu_",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
