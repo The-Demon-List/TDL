@@ -1,0 +1,18 @@
+{
+    "id": 18834999,
+    "name": "Verity",
+    "author": "Serponge",
+    "creators": ["Serponge"],
+    "verifier": "Stubbie",
+    "verification": "https://youtu.be/p15w9MB2eAc?si=ugx-AEdzq5oUI3s_",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/p15w9MB2eAc?si=ugx-AEdzq5oUI3s_",
+            "percent": 100,
+            "hz": 60
+        }
+    ]
+}
