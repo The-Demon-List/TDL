@@ -1,0 +1,18 @@
+{
+    "id": 6939821,
+    "name": "Jawbreaker",
+    "author": "Zenthicalpha",
+    "creators": ["Zenthicalpha"],
+    "verifier": "Stubbie",
+    "verification": "https://youtu.be/7lsLVVujIvg?si=jY3b7aLHXAN3pIR1",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/7lsLVVujIvg?si=jY3b7aLHXAN3pIR1",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
