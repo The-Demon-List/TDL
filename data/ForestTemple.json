@@ -8,5 +8,11 @@
     "percentToQualify": 100,
     "password": "Free To Copy",
     "records": [
+        {
+            "user": "Loki",
+            "Link": "https://youtu.be/ZKT1_Mq7hD0?si=whIodvcHkSajA5Im",
+            "percent": 100,
+            "hz": 240
+        }
     ]
 }
