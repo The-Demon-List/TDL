@@ -8,5 +8,11 @@
     "percentToQualify": 100,
     "password": "Free To Copy",
     "records": [
+        {
+            "user": "Stubbie",
+            "link": "https://youtu.be/ARL0iOLpsBU?si=KrJ9nHGXlXeCcgAB",
+            "percent": 100,
+            "hz": 240
+        }
     ]
 }
