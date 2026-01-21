@@ -10,8 +10,8 @@
     "records": [
         {
             "user": "Toph",
-            "Link": "https://youtu.be/df-lIo68IHc?si=kKyK7gqobB9j2-xC",
-            "Percent": 100,
+            "link": "https://youtu.be/df-lIo68IHc?si=kKyK7gqobB9j2-xC",
+            "percent": 100,
             "hz": 240
         }
     ]
