@@ -3,10 +3,16 @@
     "name": "ParacosmCircles",
     "author": "N1XO",
     "creators": ["N1XO"],
-    "verifier": "Loki",
+    "verifier": "Harry",
     "verification": "https://youtu.be/sf1bK08Q8_s?si=9bX-LfdiZ0x4cbWz",
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
+        {
+            "user": "Loki",
+            "link": "https://youtu.be/sf1bK08Q8_s?si=9bX-LfdiZ0x4cbWz",
+            "percent": 100,
+            "hz": 240
+        }
     ]
 }
