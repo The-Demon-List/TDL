@@ -46,8 +46,8 @@ export default {
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
                         <p class="type-label-lg" style="margin: 10px 0; color: #b9bbbe;">
-  <strong>Hardest:</strong> 
-  <span style="color: #eb455f; font-weight: bold;">{{ entry.verified[0]?.level || entry.completed[0]?.level || 'None' }}</span>
+  <strong>Hardest Beaten:</strong> 
+  <span style="color: #eb455f; font-weight: bold;">{{ entry.completed[0]?.level || 'None' }}</span>
 </p>
                         <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
                         <table class="table">
