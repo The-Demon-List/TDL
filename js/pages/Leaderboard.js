@@ -46,8 +46,8 @@ export default {
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
                         <p style="margin: 20px 0; color: #b9bbbe; font-size: 2rem; font-family: 'Lexend Deca', sans-serif; line-height: 1.2;">
-  <strong>Hardest: </strong> 
-  <span :style="{ color: hardestColor, fontWeight: '700', fontSize: '2.2rem' }">
+  <strong>Hardest:</strong> 
+  <span style="color: currentColor !important; font-weight: 700; font-size: 2.2rem;">
     {{ 
       (() => {
         const v = entry.verified?.[0];
