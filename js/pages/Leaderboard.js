@@ -46,7 +46,7 @@ export default {
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
                         <p class="hardest-title-box">
-  <strong>Hardest:</strong>
+  <strong>Hardest: </strong>
   <span class="hardest-level-name">
     {{ 
       (() => {
@@ -61,16 +61,16 @@ export default {
 
 <style>
   .hardest-title-box {
-    margin: 20px 0; 
+    margin: 50px 0; 
     color: #b9bbbe; 
-    font-size: 2rem; 
+    font-size: 1.8rem; 
     font-family: 'Lexend Deca', sans-serif; 
     line-height: 1.2;
   }
   .hardest-level-name {
     margin-left: 10px; /* Fixes the missing space */
     font-weight: 700; 
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: #000000 !important; /* Forces pure black in Light Mode */
   }
   /* Forces pure white when any dark theme class is active on the page */
