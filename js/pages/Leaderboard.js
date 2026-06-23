@@ -45,9 +45,9 @@ export default {
                     <div class="player">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
-                        <p style="margin: 50px 0; color: #FFFFFF; font-size: 1.7rem; font-family: 'Lexend Deca', sans-serif; line-height: 1.2;">
+                        <p style="margin: 50px 0; color: var(--text-color, #b9bbbe); font-size: 1.8rem; font-family: 'Lexend Deca', sans-serif; line-height: 1.2;">
   <strong>Hardest: </strong> 
-  <span style="color: #FFFFFF; font-weight: bold; font-size: 1.7rem;">
+  <span :style="{ color: store.dark ? '#ffffff' : '#000000', fontWeight: '700', fontSize: '1.8rem' }">
     {{ 
       (() => {
         const v = entry.verified?.[0];
