@@ -45,9 +45,18 @@ export default {
                     <div class="player">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
-                        <p class="type-label-lg" style="margin: 20px 0; color: #FFFFFF;">
+                        <p class="type-label-lg" style="margin: 50px 0; color: #FFFFFF;">
   <strong>Hardest: </strong> 
-  <span style="color: #FFFFFF; font-weight: bold;">{{ entry.completed[0]?.level || 'None' }}</span>
+  <span style="color: #FFFFFF; font-weight: bold;">
+    {{ 
+      (() => {
+        const v = entry.verified?.[0];
+        const c = entry.completed?.[0];
+        if (v && c) return v.rank < c.rank ? v.level : c.level;
+        return v?.level || c?.level || 'None';
+      })()
+    }}
+  </span>
 </p>
                         <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
                         <table class="table">
