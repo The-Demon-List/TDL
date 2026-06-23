@@ -45,9 +45,9 @@ export default {
                     <div class="player">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
                         <h3>{{ entry.total }}</h3>
-                        <p style="margin: 20px 0; color: #b9bbbe; font-size: 2rem; font-family: 'Lexend Deca', sans-serif; line-height: 1.2;">
-  <strong>Hardest:</strong> 
-  <span style="color: currentColor !important; font-weight: 700; font-size: 2.2rem;">
+                        <p class="hardest-title-box">
+  <strong>Hardest:</strong>
+  <span class="hardest-level-name">
     {{ 
       (() => {
         const v = entry.verified?.[0];
@@ -58,6 +58,28 @@ export default {
     }}
   </span>
 </p>
+
+<style>
+  .hardest-title-box {
+    margin: 20px 0; 
+    color: #b9bbbe; 
+    font-size: 2rem; 
+    font-family: 'Lexend Deca', sans-serif; 
+    line-height: 1.2;
+  }
+  .hardest-level-name {
+    margin-left: 10px; /* Fixes the missing space */
+    font-weight: 700; 
+    font-size: 2.2rem;
+    color: #000000 !important; /* Forces pure black in Light Mode */
+  }
+  /* Forces pure white when any dark theme class is active on the page */
+  html.dark .hardest-level-name,
+  body.dark .hardest-level-name,
+  .dark .hardest-level-name {
+    color: #ffffff !important;
+  }
+</style>
                         <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
                         <table class="table">
                             <tr v-for="score in entry.verified">
