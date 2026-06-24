@@ -74,7 +74,7 @@ export default {
         }
         
         try {
-            const res = await fetch('https://api.github.com/repos/ZeroLoki500/The-Demon-List/commits?path=data');
+            const res = await fetch('https://api.github.com/repos/ZeroLoki500/TDL/commits?path=data');
             const commits = await res.json();
             if (Array.isArray(commits)) {
                 this.pastCommits = commits.map(c => ({
