@@ -14,30 +14,32 @@ function getFetchUrl(path) {
 }
 
 export async function fetchList() {
-    const listResult = await fetch(getFetchUrl('data/_list.json'));
     try {
+        const listResult = await fetch(getFetchUrl('data/_list.json'));
         const list = await listResult.json();
-        return await Promise.all(
+        
+        const data = await Promise.all(
             list.map(async (path, rank) => {
-                const levelResult = await fetch(getFetchUrl(`data/${path}.json`));
                 try {
+                    const levelResult = await fetch(getFetchUrl(`data/${path}.json`));
                     const level = await levelResult.json();
                     return {
                         ...level,
                         path,
-                        records: level.records.sort(
+                        records: (level.records || []).sort(
                             (a, b) => b.percent - a.percent,
                         ),
                     };
                 } catch {
                     console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
+                    return null;
                 }
             }),
         );
+        return data.filter(l => l !== null);
     } catch {
         console.error(`Failed to load list.`);
-        return null;
+        return [];
     }
 }
 
@@ -53,14 +55,12 @@ export async function fetchEditors() {
 
 export async function fetchLeaderboard() {
     const list = await fetchList();
-
     const scoreMap = {};
     const errs = [];
-    if (list) {
+    
+    if (list && Array.isArray(list)) {
         list.forEach((level, rank) => {
-            if (!level || Array.isArray(level)) {
-                return;
-            }
+            if (!level) return;
 
             // Verification
             const verifier = Object.keys(scoreMap).find(
@@ -80,38 +80,39 @@ export async function fetchLeaderboard() {
             });
 
             // Records
-            level.records.forEach((record) => {
-                const user = Object.keys(scoreMap).find(
-                    (u) => u.toLowerCase() === record.user.toLowerCase(),
-                ) || record.user;
-                scoreMap[user] ??= {
-                    verified: [],
-                    completed: [],
-                    progressed: [],
-                };
-                const { completed, progressed } = scoreMap[user];
-                if (record.percent === 100) {
-                    completed.push({
+            if (level.records && Array.isArray(level.records)) {
+                level.records.forEach((record) => {
+                    const user = Object.keys(scoreMap).find(
+                        (u) => u.toLowerCase() === record.user.toLowerCase(),
+                    ) || record.user;
+                    scoreMap[user] ??= {
+                        verified: [],
+                        completed: [],
+                        progressed: [],
+                    };
+                    const { completed, progressed } = scoreMap[user];
+                    if (record.percent === 100) {
+                        completed.push({
+                            rank: rank + 1,
+                            level: level.name,
+                            score: score(rank + 1, 100, level.percentToQualify),
+                            link: record.link,
+                        });
+                        return;
+                    }
+
+                    progressed.push({
                         rank: rank + 1,
                         level: level.name,
-                        score: score(rank + 1, 100, level.percentToQualify),
+                        percent: record.percent,
+                        score: score(rank + 1, record.percent, level.percentToQualify),
                         link: record.link,
                     });
-                    return;
-                }
-
-                progressed.push({
-                    rank: rank + 1,
-                    level: level.name,
-                    percent: record.percent,
-                    score: score(rank + 1, record.percent, level.percentToQualify),
-                    link: record.link,
                 });
-            });
+            }
         });
     }
 
-    // Wrap in extra Object containing the user and total score
     const res = Object.entries(scoreMap).map(([user, scores]) => {
         const { verified, completed, progressed } = scores;
         const total = [verified, completed, progressed]
@@ -125,6 +126,5 @@ export async function fetchLeaderboard() {
         };
     });
 
-    // Sort by total score
     return [res.sort((a, b) => b.total - a.total), errs];
 }
