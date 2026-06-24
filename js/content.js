@@ -3,19 +3,26 @@ import { round, score } from './score.js';
 /**
  * Path to directory containing `_list.json` and all levels
  */
-const dir = '/data';
+let currentGitRevision = null;
+
+export function setGitRevision(sha) {
+    currentGitRevision = sha;
+}
+
+function getFetchUrl(path) {
+    if (currentGitRevision) {
+        return `https://raw.githubusercontent.com/ZeroLoki500/TDL/${currentGitRevision}/${path}`;
+    }
+    return `/${path}`;
+}
 
 export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+    const listResult = await fetch(getFetchUrl('data/_list.json'));
     try {
         const list = await listResult.json();
         return await Promise.all(
             list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
-                try {
-                    const level = await levelResult.json();
-                    return [
-                        {
+                const levelResult = await fetch(getFetchUrl(`data/${path}.json`));
                             ...level,
                             path,
                             records: level.records.sort(
