@@ -11,11 +11,10 @@ export function setGitRevision(sha) {
 
 function getFetchUrl(path) {
     if (currentGitRevision) {
-        return `https://raw.githubusercontent.com/ZeroLoki500/TDL/${currentGitRevision}/${path}`;
+        return `https://raw.githubusercontent.com/ZeroLoki500/The-Demon-List/${currentGitRevision}/${path}`;
     }
     return `/${path}`;
 }
-
 export async function fetchList() {
     const listResult = await fetch(getFetchUrl('data/_list.json'));
     try {
