@@ -3,16 +3,12 @@ import Leaderboard from './pages/Leaderboard.js';
 import Roulette from './pages/Roulette.js';
 import History from './pages/History.js';
 
-const TDLRoutes = [
-    { path: '/', component: List },
-    { path: '/leaderboard', component: Leaderboard },
-    { path: '/roulette', component: Roulette },
-    { path: '/history', component: History },
-];
-
-const router = VueRouter.createRouter({
+export default VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
-    routes: TDLRoutes,
+    routes: [
+        { path: '/', component: List },
+        { path: '/leaderboard', component: Leaderboard },
+        { path: '/roulette', component: Roulette },
+        { path: '/history', component: History },
+    ],
 });
-
-export default router;
