@@ -4,7 +4,7 @@ import { embed } from '../util.js';
 export default {
     template: `
         <main v-if="loading" class="list-container">
-            <v-preloader />
+            <div style="text-align: center; padding: 50px; color: var(--font-color, #fff); font-family: 'Lexend Deca';">Loading Timeline...</div>
         </main>
         <main v-else class="page-history" style="font-family: 'Lexend Deca', sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto;">
             <div style="background: var(--background-card, #202225); padding: 25px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -26,7 +26,7 @@ export default {
                 <div style="background: var(--background-card, #202225); border-radius: 8px; padding: 15px; max-height: 75vh; overflow-y: auto;">
                     <h3 style="color: #b9bbbe; border-bottom: 1px solid #4f545c; padding-bottom: 10px; margin-top: 0;">Rankings</h3>
                     <ol style="list-style: none; padding: 0; margin: 0;">
-                        <li v-for="(level, index) in list" :key="index" @click="selected = index" :style="{ background: selected === index ? '#eb455f' : 'transparent', color: selected === index ? '#fff' : 'var(--font-color, #fff)', padding: '10px', borderRadius: '4px', cursor: 'pointer', marginBottom: '5px', display: 'flex', justifyContent: 'between' }">
+                        <li v-for="(level, index) in list" :key="index" @click="selected = index" :style="{ background: selected === index ? '#eb455f' : 'transparent', color: selected === index ? '#fff' : 'var(--font-color, #fff)', padding: '10px', borderRadius: '4px', cursor: 'pointer', marginBottom: '5px' }">
                             <span>#{{ index + 1 }} {{ level.name }}</span>
                         </li>
                     </ol>
@@ -41,7 +41,7 @@ export default {
                         <iframe style="width: 100%; height: 100%; border-radius: 8px;" :src="'https://www.youtube.com/embed/' + embed(list[selected].verification)" frameborder="0" allowfullscreen></iframe>
                     </div>
 
-                    <h3 style="color: var(--font-color, #fff); margin-top: 30px; border-bottom: 1px solid #4f545c; padding-bottom: 5px;">Historical Records ({{ list[selected].records.length }})</h3>
+                    <h3 style="color: var(--font-color, #fff); margin-top: 30px; border-bottom: 1px solid #4f545c; padding-bottom: 5px;">Historical Records ({{ list[selected].records ? list[selected].records.length : 0 }})</h3>
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px; color: var(--font-color, #fff);">
                         <thead>
                             <tr style="text-align: left; border-bottom: 2px solid #4f545c; color: #b9bbbe;">
@@ -67,19 +67,24 @@ export default {
         loading: true,
     }),
     async mounted() {
-        this.list = await fetchList();
+        try {
+            this.list = await fetchList() || [];
+        } catch (e) {
+            console.error(e);
+        }
         
-        // Load database milestones dynamically via GitHub API entries
         try {
             const res = await fetch('https://api.github.com/repos/ZeroLoki500/TDL/commits?path=data');
             const commits = await res.json();
-            this.pastCommits = commits.map(c => ({
-                sha: c.sha,
-                date: c.commit.committer.date,
-                message: c.commit.message.length > 50 ? c.commit.message.substring(0, 50) + '...' : c.commit.message
-            }));
+            if (Array.isArray(commits)) {
+                this.pastCommits = commits.map(c => ({
+                    sha: c.sha,
+                    date: c.commit.committer.date,
+                    message: c.commit.message.length > 50 ? c.commit.message.substring(0, 50) + '...' : c.commit.message
+                }));
+            }
         } catch(e) {
-            console.error("Failed to parse historical repository points.", e);
+            console.error("Failed to sync historical snapshots", e);
         }
         this.loading = false;
     },
@@ -96,7 +101,11 @@ export default {
             } else {
                 setGitRevision(sha);
             }
-            this.list = await fetchList();
+            try {
+                this.list = await fetchList() || [];
+            } catch (e) {
+                console.error(e);
+            }
             this.selected = 0;
             this.loading = false;
         }
