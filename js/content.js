@@ -18,7 +18,7 @@ export async function fetchList() {
         const listResult = await fetch(getFetchUrl('data/_list.json'));
         const list = await listResult.json();
         
-        const data = await Promise.all(
+        return await Promise.all(
             list.map(async (path, rank) => {
                 try {
                     const levelResult = await fetch(getFetchUrl(`data/${path}.json`));
@@ -32,14 +32,14 @@ export async function fetchList() {
                     };
                 } catch {
                     console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return null;
+                    // Returns the exact error layout format List.js needs on line 168
+                    return [null, path];
                 }
             }),
         );
-        return data.filter(l => l !== null);
     } catch {
         console.error(`Failed to load list.`);
-        return [];
+        return null;
     }
 }
 
@@ -60,7 +60,7 @@ export async function fetchLeaderboard() {
     
     if (list && Array.isArray(list)) {
         list.forEach((level, rank) => {
-            if (!level) return;
+            if (!level || Array.isArray(level)) return;
 
             // Verification
             const verifier = Object.keys(scoreMap).find(
