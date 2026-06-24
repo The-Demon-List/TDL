@@ -1,3 +1,5 @@
+import routes from './routes.js';
+
 export const store = Vue.reactive({
     dark: JSON.parse(localStorage.getItem('dark')) || false,
     toggleDark() {
@@ -5,9 +7,6 @@ export const store = Vue.reactive({
         localStorage.setItem('dark', JSON.stringify(this.dark));
     },
 });
-
-// Imported after store declaration to clear the initialization dependency loop
-import routes from './routes.js';
 
 const app = Vue.createApp({
     data: () => ({ store }),
