@@ -4,11 +4,10 @@ import Roulette from './pages/Roulette.js';
 import History from './pages/History.js';
 
 export default {
-    // ... other configurations if there are any
     routes: [
         { path: '/', component: List },
         { path: '/leaderboard', component: Leaderboard },
         { path: '/roulette', component: Roulette },
-        { path: '/history', component: History }, // <--- Just add this line right here!
+        { path: '/history', component: History },
     ],
 };
