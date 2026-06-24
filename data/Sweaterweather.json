@@ -1,0 +1,18 @@
+{
+    "id": 81148582,
+    "name": "Sweater Weather",
+    "author": "VelYT",
+    "creators": ["VelYT"],
+    "verifier": "Brxkz",
+    "verification": "https://youtu.be/sVjC-qvuSTc?si=F9oY1vTyfFFXEESC",
+    "percentToQualify": 100,
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Toph",
+            "link": "https://www.youtube.com/live/CUMgZJV7yzo?si=IWRfQaw9nyqubGVL",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}
