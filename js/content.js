@@ -5,29 +5,27 @@ import { round, score } from './score.js';
  */
 const dir = '/data';
 
-export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+export async function fetchList(date = null) {
+    const targetDir = date ? `/data/${date}` : dir;
     try {
+        const listResult = await fetch(`${targetDir}/_list.json`);
         const list = await listResult.json();
         return await Promise.all(
             list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
+                const levelResult = await fetch(`${targetDir}/${path}.json`);
                 try {
                     const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
-                        },
-                        null,
-                    ];
+                    return [level, null];
                 } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
+                    return [null, 'Error loading level'];
                 }
+            })
+        );
+    } catch (e) {
+        console.error("Data not found for date:", date, e);
+        return [];
+    }
+}
             }),
         );
     } catch {
