@@ -2,7 +2,7 @@ import { fetchList } from "../content.js";
 
 export default {
     template: `
-  <main class="page-list" style="width: 100%; display: block;">
+  <main class="page-list timemachine-layout">
     <div class="list-container" style="width: 100%;">
       <header class="page-header">
         <h1>Time Machine</h1>
