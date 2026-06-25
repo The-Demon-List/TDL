@@ -161,12 +161,12 @@ export default {
         } finally {
             this.loading = false;
         }
-    },
+    }
             }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
             }
-        }
+        },
 
         // Place it right here, safely inside the mounted() function
         this.loading = false;
