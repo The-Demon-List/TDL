@@ -154,19 +154,18 @@ export default {
         },
     },
     async mounted() {
-    this.loading = true;
-    try {
-        // Fetch your data
-        this.list = await fetchList();
-        this.editors = await fetchEditors();
-    } catch (e) {
-        console.error("Failed to load list:", e);
-        this.errors = ["Failed to load the list data."];
-        this.list = [];
-    } finally {
-        this.loading = false;
-    }
-},
+        this.loading = true;
+        try {
+            this.list = await fetchList();
+            this.editors = await fetchEditors();
+        } catch (e) {
+            console.error("Failed to load list:", e);
+            this.errors = ["Failed to load the list data."];
+            this.list = [];
+        } finally {
+            this.loading = false;
+        }
+    },
             }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
