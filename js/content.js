@@ -5,32 +5,36 @@ import { round, score } from './score.js';
  */
 const dir = '/data';
 
-export async function fetchList(date = null) {
-    const targetDir = date ? `/data/${date}` : '/data';
-    
+export async function fetchList() {
+    const listResult = await fetch(`${dir}/_list.json`);
     try {
-        const response = await fetch(`${targetDir}/_list.json`);
-        if (!response.ok) throw new Error("Snapshot folder not found");
-        
-        const list = await response.json();
-        
+        const list = await listResult.json();
         return await Promise.all(
-            list.map(async (path) => {
+            list.map(async (path, rank) => {
+                const levelResult = await fetch(`${dir}/${path}.json`);
                 try {
-                    const res = await fetch(`${targetDir}/${path}.json`);
-                    const level = await res.json();
-                    return [{ ...level, path }, null];
+                    const level = await levelResult.json();
+                    return [
+                        {
+                            ...level,
+                            path,
+                            records: level.records.sort(
+                                (a, b) => b.percent - a.percent,
+                            ),
+                        },
+                        null,
+                    ];
                 } catch {
-                    // If individual level is missing, show name
-                    return [{ name: path.replace(/-/g, ' ') }, null];
+                    return [null, path];
                 }
-            })
+            }),
         );
-    } catch (e) {
-        console.warn(`Could not load snapshot for ${date || 'current'}:`, e.message);
-        return []; // Return empty instead of crashing
+    } catch {
+        console.error(`Failed to load list from ${dir}`);
+        return [];
     }
 }
+
 export async function fetchLeaderboard() {
     const list = await fetchList();
 
