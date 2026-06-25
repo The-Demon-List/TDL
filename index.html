@@ -34,27 +34,28 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
   <style>
-    /* 1. Layout Structure */
-    .timemachine-layout .page-header {
+    /* 1. Center the main container */
+.page-list {
     display: flex !important;
-    flex-direction: column !important; /* Keeps them stacked */
-    align-items: center !important;    /* Centers them horizontally */
-    justify-content: center !important; /* Centers them vertically */
+    flex-direction: column !important;
+    align-items: center !important; /* Forces everything to the horizontal middle */
     width: 100% !important;
-    padding: 10px 0 !important;        /* Adds a little breathing room */
+    min-height: 100vh;
+    padding: 20px 0;
 }
 
-/* 2. Center the Header */
-.timemachine-layout .page-header {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 20px;
+/* 2. Constrain the width of the content so it looks clean */
+.list-container {
+    width: 90% !important;
+    max-width: 800px !important; /* Keeps it from stretching too wide on big screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* 3. Constrain the List width so it's not too wide, but keep it centered */
-.timemachine-layout .list {
+/* 3. Ensure the Table/List also centers */
+.list-container .list {
     width: 100% !important;
-    max-width: 800px !important; /* Adjust this number to change list width */
 }
 
 /* 4. Row Styling (Light Mode Default) */
