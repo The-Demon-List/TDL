@@ -33,39 +33,7 @@
         <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
-        <style>
-    /* 1. Center the entire layout and stack it vertically */
-    .timemachine-layout {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* This centers everything horizontally */
-        width: 100%;
-        padding-top: 20px;
-    }
-
-    /* 2. Center the "Time Machine" header text */
-    .timemachine-layout .page-header {
-        text-align: center;
-        width: 100%;
-        margin-bottom: 30px; /* Space between header and list */
-    }
-
-    /* 3. Give the list proper width and space out the rows */
-    .timemachine-layout .list {
-        width: 90%; 
-        max-width: 800px; /* Keeps the list from getting too wide */
-        border-collapse: separate;
-        border-spacing: 0 15px; /* Adds vertical space between each list row */
-    }
-
-    /* 4. Ensure rows are readable */
-    .timemachine-layout .list tr {
-        display: block;
-        padding: 10px;
-        background: #1a1a1a; /* Dark background for readability */
-        border-radius: 5px;
-    }
-</style>
+        
     </head>
     <body id="app">
         <header :class="{ dark: store.dark }">
