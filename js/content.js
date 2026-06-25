@@ -5,33 +5,45 @@ import { round, score } from './score.js';
  */
 const dir = '/data';
 
-export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+export async function fetchList(date = null) {
+    const targetDir = date ? `/data/${date}` : dir;
+
+    const listResult = await fetch(`${targetDir}/_list.json`);
     try {
         const list = await listResult.json();
         return await Promise.all(
-            list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
+            list.map(async (path) => {
                 try {
+                    const levelResult = await fetch(`${targetDir}/${path}.json`);
                     const level = await levelResult.json();
                     return [
                         {
                             ...level,
                             path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
+                            records: level.records.sort((a, b) => b.percent - a.percent),
                         },
                         null,
                     ];
                 } catch {
-                    return [null, path];
+                    // FIX: If the file is missing, return an object with just the name
+                    // instead of returning null and triggering an error.
+                    return [{ name: path.replace(/-/g, ' ') }, null]; 
                 }
             }),
         );
     } catch {
-        console.error(`Failed to load list from ${dir}`);
+        console.error(`Failed to load list from ${targetDir}`);
         return [];
+    }
+}
+
+export async function fetchEditors() {
+    try {
+        const editorsResults = await fetch(`${dir}/_editors.json`);
+        const editors = await editorsResults.json();
+        return editors;
+    } catch {
+        return null;
     }
 }
 
