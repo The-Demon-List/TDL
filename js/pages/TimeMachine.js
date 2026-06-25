@@ -12,12 +12,11 @@ export default {
       </header>
 
       <table class="list" style="width: 100%;">
-        <tr v-for="([level, err], i) in list" :key="i">
-          <td>
-            <span class="type-label-lg">{{ level?.name || 'Error loading level' }}</span>
-          </td>
-        </tr>
-      </table>
+        <tr v-if="noDataFound">
+    <td colspan="2" style="text-align: center;">No changes found for this date.</td>
+</tr>
+<tr v-else v-for="([level, err], i) in list" :key="i">
+    </tr>
     </div>
   </main>
 `,
