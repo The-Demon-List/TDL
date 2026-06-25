@@ -14,7 +14,9 @@ const app = Vue.createApp({
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
-    routes,
+    routes: [
+        { path: '/', component: () => import('./pages/List.js') }
+    ],
 });
 
 app.use(router);
