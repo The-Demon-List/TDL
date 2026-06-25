@@ -6,10 +6,12 @@ import { round, score } from './score.js';
 const dir = '/data';
 
 export async function fetchList(date = null) {
-    const targetDir = date ? `/data/${date}` : dir;
+    const targetDir = date ? `/data/${date}` : '/data';
     
     try {
         const response = await fetch(`${targetDir}/_list.json`);
+        if (!response.ok) throw new Error("Snapshot folder not found");
+        
         const list = await response.json();
         
         return await Promise.all(
@@ -19,26 +21,16 @@ export async function fetchList(date = null) {
                     const level = await res.json();
                     return [{ ...level, path }, null];
                 } catch {
-                    // Fallback: Show the path as a name if the file is missing
+                    // If individual level is missing, show name
                     return [{ name: path.replace(/-/g, ' ') }, null];
                 }
             })
         );
-    } catch {
-        console.error("Failed to load list");
-        return [];
+    } catch (e) {
+        console.warn(`Could not load snapshot for ${date || 'current'}:`, e.message);
+        return []; // Return empty instead of crashing
     }
 }
-export async function fetchEditors() {
-    try {
-        const editorsResults = await fetch(`${dir}/_editors.json`);
-        const editors = await editorsResults.json();
-        return editors;
-    } catch {
-        return null;
-    }
-}
-
 export async function fetchLeaderboard() {
     const list = await fetchList();
 
