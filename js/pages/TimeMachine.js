@@ -6,20 +6,21 @@ export default {
             <div class="list-container">
                 <header class="page-header">
                     <h1>Time Machine</h1>
-                    <p>View list as of: 
+                    <div class="date-picker">
+                        <label>View list as of: </label>
                         <input type="date" v-model="selectedDate" @change="loadDate">
-                    </p>
+                    </div>
                 </header>
 
-                <table class="list" v-if="list.length > 0">
+                <table class="list">
                     <tr v-for="([level, err], i) in list" :key="i">
                         <td class="rank">#{{ i + 1 }}</td>
-                        <td class="level">{{ level?.name || 'Error loading level' }}</td>
+                        <td class="level">{{ level?.name || 'Unknown' }}</td>
                     </tr>
                 </table>
 
-                <div v-else class="empty-state">
-                    <p>No snapshot found for this date. Select a different date.</p>
+                <div v-if="list.length === 0" class="empty-state">
+                    <p>No snapshot found for this date.</p>
                 </div>
             </div>
         </main>
