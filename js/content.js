@@ -5,35 +5,39 @@ import { round, score } from './score.js';
  */
 const dir = '/data';
 
-export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+export async function fetchList(date = null) {
+    // This looks at the /data/ folder at the root of your site
+    const baseUrl = date ? `/data/${date}` : '/data';
+    const listUrl = `${baseUrl}/_list.json`;
+
     try {
-        const list = await listResult.json();
+        console.log("Fetching from:", listUrl);
+        const response = await fetch(listUrl);
+        
+        if (!response.ok) {
+            console.error(`Error: Could not find ${listUrl}`);
+            return [];
+        }
+
+        const list = await response.json();
+        
         return await Promise.all(
-            list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
+            list.map(async (path) => {
+                const levelUrl = `${baseUrl}/${path}.json`;
                 try {
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
-                        },
-                        null,
-                    ];
+                    const res = await fetch(levelUrl);
+                    if (!res.ok) throw new Error("Level not found");
+                    return [await res.json(), null];
                 } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
+                    return [null, 'Error loading level'];
                 }
-            }),
+            })
         );
-    } catch {
-        console.error(`Failed to load list.`);
-        return null;
+    } catch (e) {
+        console.error("Critical error in fetchList:", e);
+        return [];
     }
+}
 }
 
 export async function fetchEditors() {
