@@ -34,31 +34,27 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
   <style>
-   /* 1. Center the main page wrapper */
-.page-list {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; /* Forces all children (header + list) to horizontal center */
-    width: 100% !important;
-    margin: 0 auto !important;
-}
-
-/* 2. Constrain the content so it stays centered rather than stretching to the edges */
-.list-container {
-    width: 90% !important;
-    max-width: 800px !important; /* You can adjust this width if you want the list wider/narrower */
+   /* Scoped only to the Time Machine page */
+.timemachine-layout {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    width: 100% !important;
 }
 
-/* 3. Specifically center the header contents */
-.page-header {
+.timemachine-layout .page-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
     text-align: center !important;
+}
+
+.timemachine-layout .list {
     width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
 }
 
 /* 4. Ensure the list items fill the container width perfectly */
