@@ -127,7 +127,8 @@ export default {
             </div>
         </main>
     `,
-    data: () => ({
+    data() {
+    return {
         list: [],
         editors: [],
         loading: true,
@@ -135,11 +136,13 @@ export default {
         errors: [],
         roleIconMap,
         store
-    }),
+    };
+},
     computed: {
-        level() {
-    // Safely return the item at the selected index
-    return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
+    level() {
+        return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
+    },
+    // ... keep your other computed properties like video() here
 },
         video() {
             if (!this.level.showcase) {
@@ -154,18 +157,18 @@ export default {
         },
     },
     async mounted() {
-        this.loading = true;
-        try {
-            this.list = await fetchList();
-            this.editors = await fetchEditors();
-        } catch (e) {
-            console.error("Failed to load list:", e);
-            this.errors = ["Failed to load the list data."];
-            this.list = [];
-        } finally {
-            this.loading = false;
-        }
-    },
+    this.loading = true;
+    try {
+        this.list = await fetchList();
+        this.editors = await fetchEditors();
+    } catch (e) {
+        console.error("List load failed:", e);
+        this.errors = ["Failed to load list data."];
+        this.list = [];
+    } finally {
+        this.loading = false;
+    }
+},
             }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
