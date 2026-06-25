@@ -34,27 +34,36 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
         <style>
-    /* Force the Time Machine page wrapper to be full width */
+    /* 1. Center the entire layout and stack it vertically */
     .timemachine-layout {
-        display: block !important; /* Forces the layout to be vertical stack */
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 20px;
-        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* This centers everything horizontally */
+        width: 100%;
+        padding-top: 20px;
     }
 
-    /* Ensure the inner container fills the screen */
-    .timemachine-layout .list-container {
-        width: 100% !important;
-        max-width: 1200px;
-        margin: 0 auto; /* Centers the content */
+    /* 2. Center the "Time Machine" header text */
+    .timemachine-layout .page-header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 30px; /* Space between header and list */
     }
 
-    /* Force the table to span the full width */
+    /* 3. Give the list proper width and space out the rows */
     .timemachine-layout .list {
-        width: 100% !important;
-        display: table;
-        border-collapse: collapse;
+        width: 90%; 
+        max-width: 800px; /* Keeps the list from getting too wide */
+        border-collapse: separate;
+        border-spacing: 0 15px; /* Adds vertical space between each list row */
+    }
+
+    /* 4. Ensure rows are readable */
+    .timemachine-layout .list tr {
+        display: block;
+        padding: 10px;
+        background: #1a1a1a; /* Dark background for readability */
+        border-radius: 5px;
     }
 </style>
     </head>
