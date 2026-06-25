@@ -1,42 +1,15 @@
+// 1. IMPORTANT: Ensure these imports are at the very top of your file.
+// If you don't import them, you will get a ReferenceError.
+import { fetchList, fetchEditors } from '../api.js'; // Adjust path if needed
+
 export default {
-    components: {
-        Spinner: () => import('../components/Spinner.js'),
-        LevelAuthors: () => import('../components/LevelAuthors.js'),
-    },
-    template: `
-        <main>
-            <div v-if="loading" class="loader-container">
-                <Spinner />
-            </div>
-            <div v-else>
-                <div v-if="errors.length" class="error-container">
-                    <p v-for="err in errors">{{ err }}</p>
-                </div>
-                <div v-else class="list-container">
-                    <table>
-                        <tr v-for="(item, i) in list" :key="i">
-                            <td>
-                                <button 
-                                    class="type-label-lg" 
-                                    :class="{ 'active': selected == i }" 
-                                    @click="selected = i"
-                                >
-                                    {{ item.name }}
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </main>
-    `,
     data() {
         return {
             list: [],
             editors: [],
             loading: true,
             selected: 0,
-            errors: [],
+            errors: []
         };
     },
     computed: {
@@ -53,6 +26,7 @@ export default {
     async mounted() {
         this.loading = true;
         try {
+            // This now matches the structure expected by your app
             this.list = await fetchList();
             this.editors = await fetchEditors();
         } catch (e) {
