@@ -42,17 +42,9 @@ export default {
     this.loadDate();
 },
     methods: {
-    loadDate() {
-        // ADD THIS LINE TO SEE YOUR DATA IN THE CONSOLE
-        console.log("First item sample:", this.allData[0]); 
-
-        this.list = this.allData.filter(([level, err]) => {
-            // Check what 'level' actually contains
-            console.log("Level object:", level);
-            
-            // IF THIS IS UNDEFINED, CHANGE 'level.date' BELOW
-            return level.date === this.selectedDate; 
-        });
+    async loadDate() {
+        // Instead of filtering, we try passing the date to the fetch function
+        this.list = await fetchList(this.selectedDate);
     }
 }
 };
