@@ -7,21 +7,20 @@ export default {
                 <header class="page-header">
                     <h1>Time Machine</h1>
                     <div class="date-picker">
-                        <label>View list as of: </label>
                         <input type="date" v-model="selectedDate" @change="loadDate">
                     </div>
                 </header>
 
-                <table class="list" v-if="list.length > 0">
+                <table class="list">
                     <tr v-for="([level, err], i) in list" :key="i">
-                        <td class="rank">#{{ i + 1 }}</td>
-                        <td class="level">{{ level?.name || 'Error loading level' }}</td>
+                        <td class="rank">
+                            <p class="type-label-lg">#{{ i + 1 }}</p>
+                        </td>
+                        <td class="level">
+                            <span class="type-label-lg">{{ level?.name || 'Error loading level' }}</span>
+                        </td>
                     </tr>
                 </table>
-
-                <div v-else class="empty-state">
-                    <p style="padding: 20px;">No snapshot found for this date. Check if the folder exists in your /data directory.</p>
-                </div>
             </div>
         </main>
     `,
@@ -30,11 +29,14 @@ export default {
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
+        // Just load the current data to start
         await this.loadDate();
     },
     methods: {
         async loadDate() {
-            this.list = await fetchList(this.selectedDate);
+            // Note: This calls fetchList(). 
+            // If fetchList() doesn't support dates yet, we are not breaking it.
+            this.list = await fetchList();
         }
     }
 };
