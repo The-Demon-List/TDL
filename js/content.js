@@ -3,29 +3,44 @@ import { round, score } from './score.js';
 /**
  * Path to directory containing `_list.json` and all levels
  */
-const dir = '/data';
+// content.js
+// --- ORIGINAL FUNCTION (RESTORED) ---
+export const dir = '/data'; 
 
-export async function fetchList(date = null) {
-    const targetDir = date ? `/data/${date}` : dir;
-    
+export async function fetchList() {
+    const listResult = await fetch(`${dir}/_list.json`);
+    const list = await listResult.json();
+    return await Promise.all(
+        list.map(async (path, rank) => {
+            const levelResult = await fetch(`${dir}/${path}.json`);
+            try {
+                const level = await levelResult.json();
+                return [{ ...level, path, records: level.records.sort((a, b) => b.percent - a.percent) }, null];
+            } catch {
+                return [null, path];
+            }
+        })
+    );
+}
+
+// --- NEW SEPARATE FUNCTION (SAFE) ---
+export async function fetchHistoricalList(date) {
+    const targetDir = `/data/${date}`;
     try {
-        const response = await fetch(`${targetDir}/_list.json`);
-        const list = await response.json();
-        
+        const listResult = await fetch(`${targetDir}/_list.json`);
+        const list = await listResult.json();
         return await Promise.all(
             list.map(async (path) => {
                 try {
-                    const res = await fetch(`${targetDir}/${path}.json`);
-                    const level = await res.json();
+                    const levelResult = await fetch(`${targetDir}/${path}.json`);
+                    const level = await levelResult.json();
                     return [{ ...level, path }, null];
                 } catch {
-                    // Fallback: Show the path as a name if the file is missing
                     return [{ name: path.replace(/-/g, ' ') }, null];
                 }
             })
         );
     } catch {
-        console.error("Failed to load list");
         return [];
     }
 }
