@@ -164,14 +164,14 @@ export default {
             ];
         } else {
         if (Array.isArray(this.list)) {
-            this.errors.push(
-                ...this.list
-                    .filter((item) => Array.isArray(item) && item[1])
-                    .map(([_, err]) => `Failed to load level. (${err}.json)`)
-            );
-        } else {
-            this.errors.push("Failed to parse list data cleanly.");
-            this.list = [];
+            this.list.forEach(item => {
+                if (Array.isArray(item) && item[0]) {
+                    this.errors.push(`Failed to load level. (${item[1]}.json)`);
+                }
+            });
+        }
+        if (!this.editors) {
+            this.errors.push("Failed to load list editors.");
         }
     }
             if (!this.editors) {
