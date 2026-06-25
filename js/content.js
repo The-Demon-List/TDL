@@ -29,7 +29,6 @@ export async function fetchList(date = null) {
         return [];
     }
 }
-            }),
         );
     } catch {
         console.error(`Failed to load list.`);
