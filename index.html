@@ -34,28 +34,28 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
   <style>
-    /* 1. Center the main container */
-.page-list {
+   /* Center and format the Header */
+.page-header {
     display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; /* Forces everything to the horizontal middle */
+    flex-direction: column !important; /* Stack title and date picker */
+    align-items: center !important;    /* Horizontal center */
+    justify-content: center !important; /* Vertical center */
+    padding: 20px 0 !important;        /* Adds space inside the red box */
     width: 100% !important;
-    min-height: 100vh;
-    padding: 20px 0;
 }
 
-/* 2. Constrain the width of the content so it looks clean */
-.list-container {
-    width: 90% !important;
-    max-width: 800px !important; /* Keeps it from stretching too wide on big screens */
+/* Ensure the title text looks right */
+.page-header h1 {
+    margin: 0 0 10px 0 !important; /* Spacing between text and date */
+    text-align: center;
+    color: white; /* Ensures text is visible on the red background */
+}
+
+/* Ensure the date picker is centered */
+.page-header .date-picker {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 3. Ensure the Table/List also centers */
-.list-container .list {
-    width: 100% !important;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
 /* 4. Row Styling (Light Mode Default) */
