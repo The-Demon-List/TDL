@@ -163,13 +163,17 @@ export default {
                 "Failed to load list. Retry in a few minutes or notify list staff.",
             ];
         } else {
+        if (Array.isArray(this.list)) {
             this.errors.push(
                 ...this.list
-                    .filter(([_, err]) => err)
-                    .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
-                    })
+                    .filter((item) => Array.isArray(item) && item[1])
+                    .map(([_, err]) => `Failed to load level. (${err}.json)`)
             );
+        } else {
+            this.errors.push("Failed to parse list data cleanly.");
+            this.list = [];
+        }
+    }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
             }
