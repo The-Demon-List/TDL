@@ -27,6 +27,7 @@ export default {
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
+        console.log("My data looks like this:", this.allData);
         // Fetch the data ONCE when the component starts
         this.allData = await fetchList();
         // Run the filter immediately
