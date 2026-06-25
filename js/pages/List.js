@@ -23,17 +23,17 @@ export default {
         <main v-else class="page-list">
             <div class="list-container">
                 <table class="list" v-if="list">
-                    <tr v-for="(item, i) in list">
-                        <td class="rank">
-                            <p v-if="i + 1 <= 75" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p v-else class="type-label-lg">Legacy</p>
-                        </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
-                            </button>
-                        </td>
-                    </tr>
+                    <tr v-for="(item, i) in list" :key="i">
+    <td>
+        <button 
+            class="type-label-lg" 
+            :class="{ 'active': selected == i, 'error': !item }"
+            @click="selected = i"
+        >
+            {{ item ? item.name : 'Loading...' }}
+        </button>
+    </td>
+</tr>
                 </table>
             </div>
             <div class="level-container">
