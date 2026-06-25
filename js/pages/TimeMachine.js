@@ -34,12 +34,17 @@ export default {
         this.loadDate();
     },
     methods: {
-        loadDate() {
-            // Filter the 'allData' master list and save the result to 'list'
-            this.list = this.allData.filter(([level, err]) => {
-                // Ensure 'level.date' exists in your data
-                return level.date === this.selectedDate;
-            });
-        }
+    loadDate() {
+        // ADD THIS LINE TO SEE YOUR DATA IN THE CONSOLE
+        console.log("First item sample:", this.allData[0]); 
+
+        this.list = this.allData.filter(([level, err]) => {
+            // Check what 'level' actually contains
+            console.log("Level object:", level);
+            
+            // IF THIS IS UNDEFINED, CHANGE 'level.date' BELOW
+            return level.date === this.selectedDate; 
+        });
     }
+}
 };
