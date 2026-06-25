@@ -43,8 +43,17 @@ export default {
 },
     methods: {
     async loadDate() {
-        // Instead of filtering, we try passing the date to the fetch function
-        this.list = await fetchList(this.selectedDate);
+        // 1. Fetch data
+        const data = await fetchList(this.selectedDate);
+        
+        // 2. Check if data returned anything
+        if (data && data.length > 0) {
+            this.list = data;
+            this.noDataFound = false; // Add this to your data()
+        } else {
+            this.list = [];
+            this.noDataFound = true; // Add this to your data()
+        }
     }
 }
 };
