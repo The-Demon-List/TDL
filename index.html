@@ -34,39 +34,37 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
   <style>
-   /* Center and format the Header */
-.page-header {
+   /* 1. Center the main page wrapper */
+.page-list {
     display: flex !important;
-    flex-direction: column !important; /* Stack title and date picker */
-    align-items: center !important;    /* Horizontal center */
-    justify-content: center !important; /* Vertical center */
-    padding: 20px 0 !important;        /* Adds space inside the red box */
+    flex-direction: column !important;
+    align-items: center !important; /* Forces all children (header + list) to horizontal center */
     width: 100% !important;
+    margin: 0 auto !important;
 }
 
-/* Ensure the title text looks right */
-.page-header h1 {
-    margin: 0 0 10px 0 !important; /* Spacing between text and date */
-    text-align: center;
-    color: white; /* Ensures text is visible on the red background */
+/* 2. Constrain the content so it stays centered rather than stretching to the edges */
+.list-container {
+    width: 90% !important;
+    max-width: 800px !important; /* You can adjust this width if you want the list wider/narrower */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 }
 
-/* Ensure the date picker is centered */
-.page-header .date-picker {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
+/* 3. Specifically center the header contents */
+.page-header {
+    text-align: center !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 }
 
-/* 4. Row Styling (Light Mode Default) */
-.timemachine-layout .list tr {
-    display: block !important;
-    padding: 15px !important;
-    margin-bottom: 10px !important;
-    border-radius: 8px !important;
-    background-color: #ffffff !important; /* White background */
-    color: #000000 !important;            /* Black text */
-    border: 1px solid #ddd !important;
+/* 4. Ensure the list items fill the container width perfectly */
+.list {
+    width: 100% !important;
+    margin: 0 auto !important;
 }
 
 /* 5. Dark Mode Override */
