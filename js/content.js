@@ -5,29 +5,35 @@ import { round, score } from './score.js';
  */
 const dir = '/data';
 
-export async function fetchList() {
-    const listResult = await fetch(`${dir}/_list.json`);
+/**
+ * Fetches the list for a specific date or the current date.
+ * @param {string|null} date - YYYY-MM-DD format, or null for current.
+ */
+export async function fetchList(date = null) {
+    const baseUrl = date ? `./data/${date}` : './data';
+    
     try {
-        const list = await listResult.json();
+        const response = await fetch(`${baseUrl}/_list.json`);
+        if (!response.ok) throw new Error("Snapshot not found");
+        
+        const list = await response.json();
+        
+        // Fetch level details for the list
         return await Promise.all(
-            list.map(async (path, rank) => {
-                const levelResult = await fetch(`${dir}/${path}.json`);
+            list.map(async (path) => {
                 try {
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
-                        },
-                        null,
-                    ];
+                    const res = await fetch(`${baseUrl}/${path}.json`);
+                    return [await res.json(), null];
                 } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
-                    return [null, path];
+                    return [null, 'Error loading level'];
                 }
+            })
+        );
+    } catch (e) {
+        console.warn(`Time Machine: No data found for ${date || 'current'}`);
+        return [];
+    }
+}
             }),
         );
     } catch {
