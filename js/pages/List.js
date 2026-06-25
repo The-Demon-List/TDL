@@ -138,8 +138,9 @@ export default {
     }),
     computed: {
         level() {
-            return this.list && this.list[this.selected] ? this.list[this.selected][0] : null;
-        },
+    // Safely return the item at the selected index
+    return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
+},
         video() {
             if (!this.level.showcase) {
                 return embed(this.level.verification);
@@ -153,22 +154,19 @@ export default {
         },
     },
     async mounted() {
-        // Hide loading spinner
+    this.loading = true;
+    try {
+        // Fetch your data
         this.list = await fetchList();
         this.editors = await fetchEditors();
-
-        // Error handling
-        if (!this.list) {
-            this.errors = [
-                "Failed to load list. Retry in a few minutes or notify list staff.",
-            ];
-        } else {
-            if (Array.isArray(this.list)) {
-                this.list.forEach(item => {
-                    if (Array.isArray(item) && item[0]) {
-                        this.errors.push(`Failed to load level. (${item[1]}.json)`);
-                    }
-                });
+    } catch (e) {
+        console.error("Failed to load list:", e);
+        this.errors = ["Failed to load the list data."];
+        this.list = [];
+    } finally {
+        this.loading = false;
+    }
+},
             }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
