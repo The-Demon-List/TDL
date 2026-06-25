@@ -34,36 +34,25 @@
         <script src="https://unpkg.com/vue-router@4.0.14/dist/vue-router.global.prod.js"></script>
         <script type="module" src="/js/main.js"></script>
         <style>
-/* This container forces the side-by-side layout */
-.page-list {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 20px;
-    gap: 20px; /* Spacing between the list and content */
-}
+    /* These rules ONLY apply to elements inside the 'timemachine-layout' container */
+    .timemachine-layout {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-/* The left-hand list (matches image_826f3e.jpg) */
-.list {
-    flex: 0 0 300px; /* Forces the sidebar to stay a specific width */
-    list-style: none;
-    background: #1a1a1a; /* Matches the dark theme */
-    padding: 10px;
-}
+    .timemachine-layout .list {
+        flex: 0 0 300px;
+        list-style: none;
+    }
 
-/* The main content area */
-.list-container {
-    flex: 1; /* Makes this area fill the remaining space */
-    background: #1a1a1a;
-    padding: 20px;
-}
-
-/* Optional: Make list items look clickable/styled like the reference */
-.list tr {
-    display: block;
-    padding: 10px;
-    border-bottom: 1px solid #333;
-}
+    .timemachine-layout .list-container {
+        flex: 1;
+    }
 </style>
     </head>
     <body id="app">
