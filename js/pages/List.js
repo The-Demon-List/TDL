@@ -1,6 +1,4 @@
-// 1. IMPORTANT: Ensure these imports are at the very top of your file.
-// If you don't import them, you will get a ReferenceError.
-import { fetchList, fetchEditors } from '../api.js'; // Adjust path if needed
+import { fetchList, fetchEditors } from '../api.js';
 
 export default {
     data() {
@@ -9,7 +7,8 @@ export default {
             editors: [],
             loading: true,
             selected: 0,
-            errors: []
+            errors: [],
+            toggledShowcase: false
         };
     },
     computed: {
@@ -26,7 +25,6 @@ export default {
     async mounted() {
         this.loading = true;
         try {
-            // This now matches the structure expected by your app
             this.list = await fetchList();
             this.editors = await fetchEditors();
         } catch (e) {
