@@ -2,7 +2,7 @@ import { fetchList } from "../content.js";
 
 export default {
     template: `
-        <main style="padding-top: 100px; padding-left: 20px; padding-right: 20px;">
+        <main class="page-list">
             <div class="list-container">
                 <header class="page-header">
                     <h1>Time Machine</h1>
@@ -20,7 +20,7 @@ export default {
                 </table>
 
                 <div v-else class="empty-state">
-                    <p>No snapshot found for this date. Select a different date.</p>
+                    <p style="padding: 20px;">No snapshot found for this date. Check if the folder exists in your /data directory.</p>
                 </div>
             </div>
         </main>
