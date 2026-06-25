@@ -6,35 +6,33 @@ import { round, score } from './score.js';
 const dir = '/data';
 
 export async function fetchList(date = null) {
-    // This looks at the /data/ folder at the root of your site
-    const baseUrl = date ? `/data/${date}` : '/data';
-    const listUrl = `${baseUrl}/_list.json`;
+    const targetDir = date ? `/data/${date}` : dir;
 
+    const listResult = await fetch(`${targetDir}/_list.json`);
     try {
-        console.log("Fetching from:", listUrl);
-        const response = await fetch(listUrl);
-        
-        if (!response.ok) {
-            console.error(`Error: Could not find ${listUrl}`);
-            return [];
-        }
-
-        const list = await response.json();
-        
+        const list = await listResult.json();
         return await Promise.all(
             list.map(async (path) => {
-                const levelUrl = `${baseUrl}/${path}.json`;
                 try {
-                    const res = await fetch(levelUrl);
-                    if (!res.ok) throw new Error("Level not found");
-                    return [await res.json(), null];
+                    const levelResult = await fetch(`${targetDir}/${path}.json`);
+                    const level = await levelResult.json();
+                    return [
+                        {
+                            ...level,
+                            path,
+                            records: level.records.sort((a, b) => b.percent - a.percent),
+                        },
+                        null,
+                    ];
                 } catch {
-                    return [null, 'Error loading level'];
+                    // FIX: If the file is missing, return an object with just the name
+                    // instead of returning null and triggering an error.
+                    return [{ name: path.replace(/-/g, ' ') }, null]; 
                 }
-            })
+            }),
         );
-    } catch (e) {
-        console.error("Critical error in fetchList:", e);
+    } catch {
+        console.error(`Failed to load list from ${targetDir}`);
         return [];
     }
 }
