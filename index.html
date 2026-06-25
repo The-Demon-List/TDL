@@ -41,32 +41,28 @@
         align-items: center;
         width: 100%;
         padding-top: 20px;
+        min-height: 100vh;
     }
 
-    /* 2. List Container (Limits width) */
-    .timemachine-layout .list {
-        width: 90%; 
-        max-width: 800px;
-        border-collapse: separate;
-        border-spacing: 0 10px;
-    }
-
-    /* 3. Light Mode Defaults */
+    /* 2. Light Mode (Default) */
     .timemachine-layout .list tr {
         display: block;
         padding: 15px;
+        margin-bottom: 10px;
         border-radius: 8px;
         background-color: #ffffff; /* White background */
         color: #000000;            /* Black text */
-        border: 1px solid #ddd;    /* Light border */
+        border: 1px solid #ddd;    /* Subtle border */
+        width: 90%;
+        max-width: 800px;
     }
 
-    /* 4. Dark Mode Override */
-    /* This only triggers when the body has the 'dark' class */
+    /* 3. Dark Mode (Override) */
+    /* This rule only applies when the body has the 'dark' class */
     .dark .timemachine-layout .list tr {
-        background-color: #1a1a1a !important; /* Dark background */
-        color: #ffffff !important;           /* White text */
-        border: 1px solid #333 !important;   /* Subtle dark border */
+        background-color: #000000 !important; /* Black background */
+        color: #ffffff !important;            /* White text */
+        border: 1px solid #333 !important;    /* Subtle dark border */
     }
 </style>     
     </head>
