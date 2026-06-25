@@ -1,42 +1,38 @@
-import { fetchList } from "../content.js";
+import { fetchHistoricalList } from "../content.js";
 
 export default {
     template: `
-        <main class="page-list">
-            <div class="list-container">
-                <header class="page-header">
-                    <h1>Time Machine</h1>
-                    <div class="date-picker">
-                        <input type="date" v-model="selectedDate" @change="loadDate">
-                    </div>
-                </header>
+        <div style="max-width: 900px; margin: 100px auto 50px auto; padding: 20px; color: #fff; font-family: sans-serif;">
+            <div style="background: #1a1a1a; padding: 30px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px;">
+                <h1 style="margin: 0 0 15px 0;">Archive Console</h1>
+                <p style="color: #aaa; margin-bottom: 20px;">Browse the list history by selecting a date below.</p>
+                <input type="date" v-model="selectedDate" @change="loadDate" style="background: #333; color: white; border: 1px solid #555; padding: 12px; border-radius: 8px; width: 100%; max-width: 300px; cursor: pointer;">
+            </div>
 
-                <table class="list">
-                    <tr v-for="([level, err], i) in list" :key="i">
-                        <td class="rank">
-                            <p class="type-label-lg">#{{ i + 1 }}</p>
-                        </td>
-                        <td class="level">
-                            <span class="type-label-lg">{{ level?.name || 'Error loading level' }}</span>
-                        </td>
+            <div style="background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr v-for="([level, err], i) in list" :key="i" style="border-bottom: 1px solid #333;">
+                        <td style="padding: 15px 10px; color: #666; width: 50px;">#{{ i + 1 }}</td>
+                        <td style="padding: 15px 10px; font-weight: bold;">{{ level?.name || 'Unknown Level' }}</td>
                     </tr>
                 </table>
+                
+                <div v-if="list.length === 0" style="text-align: center; padding: 40px; color: #666;">
+                    No snapshot data available for this date.
+                </div>
             </div>
-        </main>
+        </div>
     `,
     data: () => ({
         list: [],
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
-        // Just load the current data to start
         await this.loadDate();
     },
     methods: {
         async loadDate() {
-            // Note: This calls fetchList(). 
-            // If fetchList() doesn't support dates yet, we are not breaking it.
-            this.list = await fetchList();
+            this.list = await fetchHistoricalList(this.selectedDate);
         }
     }
 };
