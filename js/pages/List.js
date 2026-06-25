@@ -163,22 +163,19 @@ export default {
                 "Failed to load list. Retry in a few minutes or notify list staff.",
             ];
         } else {
-        if (Array.isArray(this.list)) {
-            this.list.forEach(item => {
-                if (Array.isArray(item) && item[0]) {
-                    this.errors.push(`Failed to load level. (${item[1]}.json)`);
-                }
-            });
-        }
-        if (!this.editors) {
-            this.errors.push("Failed to load list editors.");
-        }
-    }
+            if (Array.isArray(this.list)) {
+                this.list.forEach(item => {
+                    if (Array.isArray(item) && item[0]) {
+                        this.errors.push(`Failed to load level. (${item[1]}.json)`);
+                    }
+                });
+            }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
             }
         }
 
+        // Place it right here, safely inside the mounted() function
         this.loading = false;
     },
     methods: {
