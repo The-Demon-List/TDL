@@ -23,14 +23,14 @@ export default {
         <main v-else class="page-list">
             <div class="list-container">
                 <table class="list" v-if="list">
-                    <tr v-for="(level, i) in list" :key="i">
+                    <tr v-for="(item, i) in list" :key="i">
     <td>
         <button 
             class="type-label-lg" 
-            :class="{ 'active': selected == i, 'error': !item }"
+            :class="{ 'active': selected == i }" 
             @click="selected = i"
         >
-            {{ item ? item.name : 'Loading...' }}
+            {{ item.name }}
         </button>
     </td>
 </tr>
@@ -139,22 +139,15 @@ export default {
         };
     },
     computed: {
-    level() {
-        return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
-    },
-    // ... keep your other computed properties like video() here
-},
-        video() {
-            if (!this.level.showcase) {
-                return embed(this.level.verification);
-            }
-
-            return embed(
-                this.toggledShowcase
-                    ? this.level.showcase
-                    : this.level.verification
-            );
+        level() {
+            return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
         },
+        video() {
+            if (!this.level || !this.level.showcase) return null; // Safety check
+            return this.toggledShowcase
+                ? this.level.showcase
+                : this.level.verification;
+        }
     },
     async mounted() {
         this.loading = true;
