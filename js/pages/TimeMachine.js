@@ -23,17 +23,22 @@ export default {
 `,
     data: () => ({
         list: [],
+        allData: [], // This stores your master list
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
-        // Just load the current data to start
-        await this.loadDate();
+        // Fetch the data ONCE when the component starts
+        this.allData = await fetchList();
+        // Run the filter immediately
+        this.loadDate();
     },
     methods: {
-        async loadDate() {
-            // Note: This calls fetchList(). 
-            // If fetchList() doesn't support dates yet, we are not breaking it.
-            this.list = await fetchList();
+        loadDate() {
+            // Filter the 'allData' master list and save the result to 'list'
+            this.list = this.allData.filter(([level, err]) => {
+                // Ensure 'level.date' exists in your data
+                return level.date === this.selectedDate;
+            });
         }
     }
 };
