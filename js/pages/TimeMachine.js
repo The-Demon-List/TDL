@@ -4,10 +4,7 @@ import Spinner from "../components/Spinner.js";
 export default {
     components: { Spinner },
     template: `
-        <main v-if="loading">
-            <Spinner></Spinner>
-        </main>
-        <main v-else class="page-list">
+        <main class="page-list">
             <div class="list-container">
                 <h1>Time Machine</h1>
                 <div style="padding: 20px;">
@@ -27,9 +24,7 @@ export default {
                 </table>
                 <p v-else style="padding: 20px;">No data found for this date.</p>
             </div>
-            
             <div class="level-container"></div>
-            
             <div class="meta-container"></div>
         </main>
     `,
@@ -41,13 +36,12 @@ export default {
     methods: {
         async loadDate() {
             this.loading = true;
-            // This attempts to fetch the list based on the date
+            // This expects your fetchList in content.js to handle the date
             this.list = await fetchList(this.selectedDate);
             this.loading = false;
         }
     },
     async mounted() {
-        // Load the list immediately when the page opens
         await this.loadDate();
     }
 };
