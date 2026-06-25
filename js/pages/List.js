@@ -1,4 +1,4 @@
-import { store } from "../main.js";
+Fimport { store } from "../main.js";
 import { embed } from "../util.js";
 import { score } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
@@ -86,7 +86,7 @@ export default {
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     <div class="og">
-                        <p class="type-label-md">Website made by <a href="https://tsl.pages.dev/" target="_blank">Loki. Thank him.</a></p>
+                        <p class="type-label-md">Website made by Loki. Thank him. <a href="https://tsl.pages.dev/" target="_blank"></a></p>
                     </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
