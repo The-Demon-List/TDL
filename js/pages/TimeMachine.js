@@ -12,11 +12,12 @@ export default {
       </header>
 
       <table class="list" style="width: 100%;">
-        <tr v-if="noDataFound">
-    <td colspan="2" style="text-align: center;">No changes found for this date.</td>
-</tr>
-<tr v-else v-for="([level, err], i) in list" :key="i">
-    </tr>
+        <tr v-for="([level, err], i) in list" :key="i">
+          <td>
+            <span class="type-label-lg">{{ level?.name || 'Error loading level' }}</span>
+          </td>
+        </tr>
+      </table>
     </div>
   </main>
 `,
@@ -42,17 +43,8 @@ export default {
 },
     methods: {
     async loadDate() {
-        // 1. Fetch data
-        const data = await fetchList(this.selectedDate);
-        
-        // 2. Check if data returned anything
-        if (data && data.length > 0) {
-            this.list = data;
-            this.noDataFound = false; // Add this to your data()
-        } else {
-            this.list = [];
-            this.noDataFound = true; // Add this to your data()
-        }
+        // Instead of filtering, we try passing the date to the fetch function
+        this.list = await fetchList(this.selectedDate);
     }
 }
 };
