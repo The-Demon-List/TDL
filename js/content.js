@@ -7,36 +7,28 @@ const dir = '/data';
 
 export async function fetchList(date = null) {
     const targetDir = date ? `/data/${date}` : dir;
-
-    const listResult = await fetch(`${targetDir}/_list.json`);
+    
     try {
-        const list = await listResult.json();
+        const response = await fetch(`${targetDir}/_list.json`);
+        const list = await response.json();
+        
         return await Promise.all(
             list.map(async (path) => {
                 try {
-                    const levelResult = await fetch(`${targetDir}/${path}.json`);
-                    const level = await levelResult.json();
-                    return [
-                        {
-                            ...level,
-                            path,
-                            records: level.records.sort((a, b) => b.percent - a.percent),
-                        },
-                        null,
-                    ];
+                    const res = await fetch(`${targetDir}/${path}.json`);
+                    const level = await res.json();
+                    return [{ ...level, path }, null];
                 } catch {
-                    // FIX: If the file is missing, return an object with just the name
-                    // instead of returning null and triggering an error.
-                    return [{ name: path.replace(/-/g, ' ') }, null]; 
+                    // Fallback: Show the path as a name if the file is missing
+                    return [{ name: path.replace(/-/g, ' ') }, null];
                 }
-            }),
+            })
         );
     } catch {
-        console.error(`Failed to load list from ${targetDir}`);
+        console.error("Failed to load list");
         return [];
     }
 }
-
 export async function fetchEditors() {
     try {
         const editorsResults = await fetch(`${dir}/_editors.json`);
