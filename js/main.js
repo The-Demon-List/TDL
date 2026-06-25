@@ -14,7 +14,7 @@ const app = Vue.createApp({
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
-    routes: routes,
+    routes,
 });
 
 app.use(router);
