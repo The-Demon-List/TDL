@@ -27,12 +27,20 @@ export default {
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
-        console.log("My data looks like this:", this.allData);
-        // Fetch the data ONCE when the component starts
-        this.allData = await fetchList();
-        // Run the filter immediately
-        this.loadDate();
-    },
+    this.allData = await fetchList();
+    
+    // ADD THIS LINE
+    console.log("DEBUG: The full data from fetchList is:", this.allData);
+
+    // If the data exists, print the first item to see its structure
+    if (this.allData.length > 0) {
+        console.log("DEBUG: The first item structure is:", this.allData[0]);
+    } else {
+        console.warn("WARNING: The data list is empty!");
+    }
+    
+    this.loadDate();
+},
     methods: {
     loadDate() {
         // ADD THIS LINE TO SEE YOUR DATA IN THE CONSOLE
