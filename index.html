@@ -35,13 +35,13 @@
         <script type="module" src="/js/main.js"></script>
   <style>
     /* 1. Layout Structure */
-    .timemachine-layout {
+    .timemachine-layout .page-header {
     display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; /* Forces everything to the middle */
+    flex-direction: column !important; /* Keeps them stacked */
+    align-items: center !important;    /* Centers them horizontally */
+    justify-content: center !important; /* Centers them vertically */
     width: 100% !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
+    padding: 10px 0 !important;        /* Adds a little breathing room */
 }
 
 /* 2. Center the Header */
