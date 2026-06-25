@@ -143,7 +143,7 @@ export default {
             return (this.list && this.list[this.selected]) ? this.list[this.selected] : null;
         },
         video() {
-            if (!this.level || !this.level.showcase) return null; // Safety check
+            if (!this.level || !this.level.showcase) return null;
             return this.toggledShowcase
                 ? this.level.showcase
                 : this.level.verification;
@@ -161,7 +161,7 @@ export default {
         } finally {
             this.loading = false;
         }
-    },
+    }
             }
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
