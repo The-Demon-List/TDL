@@ -23,17 +23,28 @@ export default {
 `,
     data: () => ({
         list: [],
+        allData: [], // This stores your master list
         selectedDate: new Date().toISOString().split('T')[0],
     }),
     async mounted() {
-        // Just load the current data to start
-        await this.loadDate();
-    },
-    methods: {
-        async loadDate() {
-            // Note: This calls fetchList(). 
-            // If fetchList() doesn't support dates yet, we are not breaking it.
-            this.list = await fetchList();
-        }
+    this.allData = await fetchList();
+    
+    // ADD THIS LINE
+    console.log("DEBUG: The full data from fetchList is:", this.allData);
+
+    // If the data exists, print the first item to see its structure
+    if (this.allData.length > 0) {
+        console.log("DEBUG: The first item structure is:", this.allData[0]);
+    } else {
+        console.warn("WARNING: The data list is empty!");
     }
+    
+    this.loadDate();
+},
+    methods: {
+    async loadDate() {
+        // Instead of filtering, we try passing the date to the fetch function
+        this.list = await fetchList(this.selectedDate);
+    }
+}
 };
